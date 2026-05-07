@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", sans-serif;
+  --font-display: "Libre Baskerville", serif;
+
+  --color-paper: #f4efe4;
+  --color-paper-soft: #faf7f0;
+  --color-ivory: #fffdf8;
+  --color-ink: #1f1a17;
+  --color-brown: #5a4b3d;
+  --color-bronze: #8b7557;
+  --color-gold: #b39a72;
+  --color-gold-dark: #8f7754;
+  --color-gold-light: #c7b18b;
+  --color-gold-muted: #d8ccb8;
+}
+
+:root {
+  color: var(--color-ink);
+  background: var(--color-paper);
+  font-family: var(--font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  background: linear-gradient(180deg, #f7f2e8 0%, #f2ece1 100%);
+}
+
+#root {
+  position: relative;
+}
+
+.paper-panel {
+  background: rgba(255, 253, 248, 0.92);
+  box-shadow: 0 18px 45px rgba(31, 26, 23, 0.05);
+}
+
+.gold-line {
+  background: var(--color-gold);
+}
+
+.dark-panel {
+  background: #2a221d;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}

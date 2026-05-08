@@ -106,6 +106,11 @@ function Logo({ className = 'h-9 w-auto' }: { className?: string }) {
 
 function App() {
   const [activeSection, setActiveSection] = useState('#vision')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formStatus, setFormStatus] = useState<{
+    type: 'success' | 'error'
+    message: string
+  } | null>(null)
 
   useEffect(() => {
     const sections = navigation
@@ -137,6 +142,43 @@ function App() {
       window.removeEventListener('hashchange', updateActiveSection)
     }
   }, [])
+
+  const handleContactSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const form = event.currentTarget
+    const formData = new FormData(form)
+
+    setIsSubmitting(true)
+    setFormStatus(null)
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/contacto@amy7.mx', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+        },
+        body: formData,
+      })
+
+      if (!response.ok) {
+        throw new Error('No se pudo enviar el formulario.')
+      }
+
+      setFormStatus({
+        type: 'success',
+        message: 'Mensaje enviado correctamente.',
+      })
+      form.reset()
+    } catch {
+      setFormStatus({
+        type: 'error',
+        message: 'Hubo un problema al enviar el mensaje. Intenta de nuevo.',
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <div className="relative isolate min-h-screen text-ink selection:bg-gold/30">
@@ -356,16 +398,23 @@ function App() {
 
               <form
                 className="paper-panel rounded-[1.25rem] border border-stone-900/8 p-7 md:p-8"
-                onSubmit={(event) => event.preventDefault()}
+                onSubmit={handleContactSubmit}
               >
+                <input type="hidden" name="_subject" value="Nuevo contacto desde amy7.mx" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_url" value="https://amy7.mx/#contacto" />
+
                 <div className="grid gap-5 md:grid-cols-2">
                   <label className="block">
                     <span className="mb-2 block text-sm font-semibold text-brown">
                       Nombre completo <span className="text-gold-dark">*</span>
                     </span>
                     <input
+                      name="name"
                       type="text"
                       placeholder="Tu nombre"
+                      required
                       className="w-full rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
                     />
                   </label>
@@ -375,8 +424,10 @@ function App() {
                       Correo electronico <span className="text-gold-dark">*</span>
                     </span>
                     <input
+                      name="email"
                       type="email"
                       placeholder="tu@empresa.com"
+                      required
                       className="w-full rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
                     />
                   </label>
@@ -386,6 +437,7 @@ function App() {
                       Empresa <span className="text-brown/45">(opcional)</span>
                     </span>
                     <input
+                      name="company"
                       type="text"
                       placeholder="Nombre de tu empresa"
                       className="w-full rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
@@ -396,7 +448,10 @@ function App() {
                     <span className="mb-2 block text-sm font-semibold text-brown">
                       Servicio de interes
                     </span>
-                    <select className="w-full appearance-none rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition focus:border-gold-dark focus:ring-2 focus:ring-gold/10">
+                    <select
+                      name="service"
+                      className="w-full appearance-none rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
+                    >
                       <option>Selecciona un servicio</option>
                       <option>Cajas de carton</option>
                       <option>Cintas adhesivas</option>
@@ -411,16 +466,31 @@ function App() {
                     Mensaje <span className="text-gold-dark">*</span>
                   </span>
                   <textarea
+                    name="message"
                     placeholder="Cuentanos que necesitas, cantidades estimadas y fechas objetivo."
+                    required
                     className="h-36 w-full resize-none rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
                   />
                 </label>
 
+                {formStatus ? (
+                  <div
+                    className={
+                      formStatus.type === 'success'
+                        ? 'mt-5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800'
+                        : 'mt-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800'
+                    }
+                  >
+                    {formStatus.message}
+                  </div>
+                ) : null}
+
                 <button
                   type="submit"
-                  className="mt-6 inline-flex w-full items-center justify-center rounded-xl border border-gold/35 bg-ink px-6 py-4 text-sm font-semibold text-paper-soft transition hover:bg-brown"
+                  disabled={isSubmitting}
+                  className="mt-6 inline-flex w-full items-center justify-center rounded-xl border border-gold/35 bg-ink px-6 py-4 text-sm font-semibold text-paper-soft transition hover:bg-brown disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  Enviar mensaje
+                  {isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
                 </button>
               </form>
             </div>

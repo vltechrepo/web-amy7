@@ -106,6 +106,7 @@ function Logo({ className = 'h-9 w-auto' }: { className?: string }) {
 
 function App() {
   const [activeSection, setActiveSection] = useState('#vision')
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formStatus, setFormStatus] = useState<{
     type: 'success' | 'error'
@@ -142,6 +143,10 @@ function App() {
       window.removeEventListener('hashchange', updateActiveSection)
     }
   }, [])
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [activeSection])
 
   const handleContactSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -184,10 +189,10 @@ function App() {
     <div className="relative isolate min-h-screen text-ink selection:bg-gold/30">
       <BackgroundGradientSnippet />
 
-      <nav className="fixed inset-x-0 top-4 z-50 px-4 md:px-6">
+      <nav className="fixed inset-x-0 top-3 z-50 px-3 md:top-4 md:px-6">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-stone-200/80 bg-white/82 px-4 py-3 shadow-[0_16px_40px_rgba(91,75,61,0.1)] backdrop-blur-xl md:px-6">
           <a href="#vision" className="text-ink transition hover:text-gold-dark" aria-label="Ir al inicio">
-            <Logo className="h-8 w-auto" />
+            <Logo className="h-7 w-auto sm:h-8" />
           </a>
 
           <div className="hidden items-center gap-2 lg:flex">
@@ -207,25 +212,55 @@ function App() {
               </a>
             ))}
           </div>
+
+          <button
+            type="button"
+            className="flex h-12 w-12 items-center justify-center rounded-2xl border border-stone-200 bg-white/88 text-ink shadow-[0_10px_30px_rgba(91,75,61,0.08)] transition hover:bg-white lg:hidden"
+            aria-label={isMobileMenuOpen ? 'Cerrar menu' : 'Abrir menu'}
+            aria-expanded={isMobileMenuOpen}
+            onClick={() => setIsMobileMenuOpen((value) => !value)}
+          >
+            <span className="relative block h-5 w-5">
+              <span
+                className={`absolute left-0 top-1 h-[2px] w-5 rounded-full bg-current transition ${
+                  isMobileMenuOpen ? 'translate-y-[6px] rotate-45' : ''
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-[9px] h-[2px] w-5 rounded-full bg-current transition ${
+                  isMobileMenuOpen ? 'opacity-0' : ''
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-[17px] h-[2px] w-5 rounded-full bg-current transition ${
+                  isMobileMenuOpen ? '-translate-y-[6px] -rotate-45' : ''
+                }`}
+              />
+            </span>
+          </button>
         </div>
 
-        <div className="mx-auto mt-3 flex max-w-7xl gap-2 overflow-x-auto px-1 pb-1 lg:hidden">
-          {navigation.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setActiveSection(item.href)}
-              className={
-                activeSection === item.href
-                  ? 'shrink-0 rounded-full border border-gold/35 bg-gold-dark px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm'
-                  : 'shrink-0 rounded-full border border-stone-200 bg-white/88 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.18em] text-brown/80 backdrop-blur-sm'
-              }
-              aria-current={activeSection === item.href ? 'page' : undefined}
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
+        {isMobileMenuOpen ? (
+          <div className="mx-auto mt-3 max-w-7xl rounded-[1.75rem] border border-stone-200/80 bg-white/92 p-3 shadow-[0_18px_40px_rgba(91,75,61,0.12)] backdrop-blur-xl lg:hidden">
+            <div className="grid gap-2">
+              {navigation.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setActiveSection(item.href)}
+                  className={
+                    activeSection === item.href
+                      ? 'rounded-2xl border border-gold/35 bg-gold-dark px-4 py-3 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-white'
+                      : 'rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 text-center text-[11px] font-medium uppercase tracking-[0.18em] text-brown/80'
+                  }
+                  aria-current={activeSection === item.href ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </nav>
 
       <main className="relative z-10">
@@ -268,10 +303,10 @@ function App() {
         >
           <div className="mx-auto max-w-7xl">
             <div className="mb-16 flex flex-col gap-5 md:mb-18 md:flex-row md:items-end md:justify-between">
-              <h2 className="font-display text-3xl leading-tight text-ivory md:text-[2.6rem]">
+              <h2 className="text-center font-display text-3xl leading-tight text-ivory md:text-left md:text-[2.6rem]">
                 Lineas de <span className="text-gold-light">Embalaje</span>
               </h2>
-              <p className="text-[10px] uppercase tracking-[0.18em] text-gold-light/72">
+              <p className="text-center text-[10px] uppercase tracking-[0.18em] text-gold-light/72 md:text-left">
                 Seleccion de Materiales Premium
               </p>
             </div>
@@ -337,11 +372,11 @@ function App() {
                   </ul>
                 </div>
 
-                <div className="flex flex-col items-start justify-center md:items-end">
+                <div className="flex flex-col items-center justify-center md:items-end">
                   <div className="rounded-[1.25rem] border border-white/10 bg-white/6 px-8 py-8">
                     <Logo className="h-auto w-44 text-white/80" />
                   </div>
-                  <p className="mt-8 text-[10px] uppercase tracking-[0.18em] text-white/60 md:text-right">
+                  <p className="mt-8 text-center text-[10px] uppercase tracking-[0.18em] text-white/60 md:text-right">
                     AMY7 | Innovacion y Elegancia
                   </p>
                 </div>

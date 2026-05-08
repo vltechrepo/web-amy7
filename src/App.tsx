@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import logoAmy7 from '@/assets/logo-amy7.svg?raw'
 import BackgroundGradientSnippet from '@/components/ui/background-gradient-snippet'
 
 type Product = {
@@ -26,27 +27,27 @@ const products: Product[] = [
   {
     id: 'boxes',
     number: '01',
-    title: 'Cajas de Carton',
+    title: 'Carton',
     description:
-      'Corrugado de alta densidad con acabado mate o satinado. Rigidez estructural garantizada.',
+      'Contamos con fabricacion de cajas de carton a la medida de la mejor calidad, con una capacidad de produccion diaria de mas de 50 mil cajas. Asegurando tiempos de entrega y abastecimiento en cualquier necesidad de nuestros clientes.',
     image:
       'https://images.unsplash.com/photo-1607166452427-7e4477079cb9?auto=format&fit=crop&q=80',
   },
   {
     id: 'tapes',
     number: '02',
-    title: 'Cintas Adhesivas',
+    title: 'Impresos',
     description:
-      'Personalizacion en oro y chocolate. Adhesion superior para superficies dificiles.',
+      'Contamos con la mejor calidad y velocidad en la fabricacion de todo tipo de cintas adhesivas y flejes con impresion. Asegurando siempre tu inventario y tiempos de entrega muy eficientes.',
     image:
       'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80',
   },
   {
     id: 'film',
     number: '03',
-    title: 'Stretch Film',
+    title: 'Pelicula Plastica',
     description:
-      'Peliculas tecnicas de alto rendimiento. El equilibrio perfecto entre estiramiento y fuerza.',
+      'Con nosotros podras tener siempre tus requerimientos de cualquier tipo de pelicula plastica abastecidos, no importa si es pelicula manual, para maquina o grado alimenticio.',
     image:
       'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&q=80',
   },
@@ -85,22 +86,12 @@ const contactDetails = [
 
 function Logo({ className = 'h-9 w-auto' }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 220 60" aria-label="AMY7 logo" role="img">
-      <path
-        d="M10 50L30 10L50 50 M18 38H42 M60 50V10L80 35L100 10V50 M110 10L130 30L150 10 M130 30V50"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="1.2"
-      />
-      <path
-        d="M165 10H205L180 50 M185 30H198"
-        fill="none"
-        stroke="var(--color-gold)"
-        strokeLinecap="round"
-        strokeWidth="1.2"
-      />
-    </svg>
+    <span
+      className={`${className} block [&_svg]:h-full [&_svg]:w-full`}
+      aria-label="AMY7 logo"
+      role="img"
+      dangerouslySetInnerHTML={{ __html: logoAmy7 }}
+    />
   )
 }
 
@@ -190,7 +181,7 @@ function App() {
       <BackgroundGradientSnippet />
 
       <nav className="fixed inset-x-0 top-3 z-50 px-3 md:top-4 md:px-6">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-stone-200/80 bg-white/82 px-4 py-3 shadow-[0_16px_40px_rgba(91,75,61,0.1)] backdrop-blur-xl md:px-6">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-stone-200/65 bg-white/68 px-4 py-3 shadow-[0_16px_40px_rgba(91,75,61,0.08)] backdrop-blur-xl md:px-6">
           <a href="#vision" className="text-ink transition hover:text-gold-dark" aria-label="Ir al inicio">
             <Logo className="h-7 w-auto sm:h-8" />
           </a>
@@ -215,7 +206,7 @@ function App() {
 
           <button
             type="button"
-            className="flex h-12 w-12 items-center justify-center rounded-2xl border border-stone-200 bg-white/88 text-ink shadow-[0_10px_30px_rgba(91,75,61,0.08)] transition hover:bg-white lg:hidden"
+            className="flex h-12 w-12 items-center justify-center rounded-2xl border border-stone-200/70 bg-white/72 text-ink shadow-[0_10px_30px_rgba(91,75,61,0.08)] transition hover:bg-white/86 lg:hidden"
             aria-label={isMobileMenuOpen ? 'Cerrar menu' : 'Abrir menu'}
             aria-expanded={isMobileMenuOpen}
             onClick={() => setIsMobileMenuOpen((value) => !value)}
@@ -241,7 +232,7 @@ function App() {
         </div>
 
         {isMobileMenuOpen ? (
-          <div className="mx-auto mt-3 max-w-7xl rounded-[1.75rem] border border-stone-200/80 bg-white/92 p-3 shadow-[0_18px_40px_rgba(91,75,61,0.12)] backdrop-blur-xl lg:hidden">
+          <div className="mx-auto mt-3 max-w-7xl rounded-[1.75rem] border border-stone-200/65 bg-white/72 p-3 shadow-[0_18px_40px_rgba(91,75,61,0.1)] backdrop-blur-xl lg:hidden">
             <div className="grid gap-2">
               {navigation.map((item) => (
                 <a
@@ -302,14 +293,15 @@ function App() {
           className="mx-4 rounded-[2rem] border border-white/10 bg-white/6 px-6 py-24 shadow-[0_24px_70px_rgba(0,0,0,0.2)] backdrop-blur-md md:mx-6 md:px-8 lg:mx-10 lg:px-10 lg:py-32"
         >
           <div className="mx-auto max-w-7xl">
-            <div className="mb-16 flex flex-col gap-5 md:mb-18 md:flex-row md:items-end md:justify-between">
+            <div className="mb-5 md:mb-7">
               <h2 className="text-center font-display text-3xl leading-tight text-ivory md:text-left md:text-[2.6rem]">
                 Lineas de <span className="text-gold-light">Embalaje</span>
               </h2>
-              <p className="text-center text-[10px] uppercase tracking-[0.18em] text-gold-light/72 md:text-left">
-                Seleccion de Materiales Premium
-              </p>
             </div>
+
+            <p className="mb-10 max-w-3xl text-center text-[15px] leading-7 text-stone-200/82 md:mb-12 md:text-left md:text-base">
+              Nuestra especialidad es el embalaje de las siguientes 3 areas.
+            </p>
 
             <div className="grid gap-5 md:grid-cols-3">
               {products.map((product) => (
@@ -340,6 +332,10 @@ function App() {
                 </article>
               ))}
             </div>
+
+            <p className="mt-12 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-gold-light/78 md:mt-14">
+              Todos nuestros procesos cuentan con las certificaciones ISO 9001.
+            </p>
           </div>
         </section>
 

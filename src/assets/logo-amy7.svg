@@ -1,0 +1,41 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1600 420"
+  fill="none"
+>
+  <path
+    d="M102 378L289 42L475 378M166 273H411"
+    stroke="currentColor"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
+    stroke-width="14"
+  />
+  <path
+    d="M486 42V378L489 45L676 240L865 42V378"
+    stroke="currentColor"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
+    stroke-width="14"
+  />
+  <path
+    d="M865 42L1056 232L1056 378"
+    stroke="currentColor"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
+    stroke-width="14"
+  />
+  <path
+    d="M865 42V378"
+    stroke="currentColor"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
+    stroke-width="14"
+  />
+  <path
+    d="M1056 232L1248 42H1527L1248 378"
+    stroke="currentColor"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
+    stroke-width="14"
+  />
+</svg>

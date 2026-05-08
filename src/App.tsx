@@ -1,3 +1,7 @@
+import { useEffect, useState } from 'react'
+
+import BackgroundGradientSnippet from '@/components/ui/background-gradient-snippet'
+
 type Product = {
   id: string
   number: string
@@ -12,7 +16,7 @@ type Metric = {
 }
 
 const navigation = [
-  { href: '#vision', label: 'The Vision' },
+  { href: '#vision', label: 'Vision' },
   { href: '#catalogo', label: 'Catalogo' },
   { href: '#especificaciones', label: 'Tecnica' },
   { href: '#contacto', label: 'Contacto', primary: true },
@@ -101,89 +105,131 @@ function Logo({ className = 'h-9 w-auto' }: { className?: string }) {
 }
 
 function App() {
+  const [activeSection, setActiveSection] = useState('#vision')
+
+  useEffect(() => {
+    const sections = navigation
+      .map((item) => document.querySelector<HTMLElement>(item.href))
+      .filter((section): section is HTMLElement => section !== null)
+
+    if (sections.length === 0) return
+
+    const updateActiveSection = () => {
+      const scrollPosition = window.scrollY + window.innerHeight * 0.3
+
+      let currentSection = sections[0].id
+
+      for (const section of sections) {
+        if (scrollPosition >= section.offsetTop) {
+          currentSection = section.id
+        }
+      }
+
+      setActiveSection(`#${currentSection}`)
+    }
+
+    updateActiveSection()
+    window.addEventListener('scroll', updateActiveSection, { passive: true })
+    window.addEventListener('hashchange', updateActiveSection)
+
+    return () => {
+      window.removeEventListener('scroll', updateActiveSection)
+      window.removeEventListener('hashchange', updateActiveSection)
+    }
+  }, [])
+
   return (
-    <div className="min-h-screen bg-paper text-ink selection:bg-gold/30">
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-stone-900/8 bg-paper-soft/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-8 lg:px-10">
+    <div className="relative isolate min-h-screen text-ink selection:bg-gold/30">
+      <BackgroundGradientSnippet />
+
+      <nav className="fixed inset-x-0 top-4 z-50 px-4 md:px-6">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-stone-200/80 bg-white/82 px-4 py-3 shadow-[0_16px_40px_rgba(91,75,61,0.1)] backdrop-blur-xl md:px-6">
           <a href="#vision" className="text-ink transition hover:text-gold-dark" aria-label="Ir al inicio">
-            <Logo />
+            <Logo className="h-8 w-auto" />
           </a>
 
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-2 lg:flex">
             {navigation.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
+                onClick={() => setActiveSection(item.href)}
                 className={
-                  item.primary
-                    ? 'rounded-full border border-gold/40 bg-ink px-5 py-2 text-[10px] font-medium uppercase tracking-[0.18em] text-paper-soft transition hover:bg-brown'
-                    : 'px-3 py-2 text-[10px] font-medium uppercase tracking-[0.18em] text-ink/72 transition hover:text-gold-dark'
+                  activeSection === item.href
+                    ? 'rounded-full border border-gold/35 bg-gold-dark px-5 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-ivory transition hover:bg-bronze'
+                    : 'rounded-full px-4 py-2 text-[10px] font-medium uppercase tracking-[0.18em] text-brown/80 transition hover:bg-stone-100 hover:text-ink'
                 }
+                aria-current={activeSection === item.href ? 'page' : undefined}
               >
                 {item.label}
               </a>
             ))}
           </div>
         </div>
+
+        <div className="mx-auto mt-3 flex max-w-7xl gap-2 overflow-x-auto px-1 pb-1 lg:hidden">
+          {navigation.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={() => setActiveSection(item.href)}
+              className={
+                activeSection === item.href
+                  ? 'shrink-0 rounded-full border border-gold/35 bg-gold-dark px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm'
+                  : 'shrink-0 rounded-full border border-stone-200 bg-white/88 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.18em] text-brown/80 backdrop-blur-sm'
+              }
+              aria-current={activeSection === item.href ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
       </nav>
 
-      <main>
-        <section id="vision" className="px-6 pb-20 pt-28 md:px-8 lg:px-10 lg:pb-24 lg:pt-32">
-          <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-18">
-            <div className="order-2 lg:order-1">
-              <span className="mb-5 inline-flex border border-gold/35 bg-ivory px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-gold-dark">
-                Innovacion y elegancia
-              </span>
-
-              <h1 className="max-w-xl font-display text-4xl leading-[1.08] text-ink sm:text-5xl lg:text-[4.4rem]">
-                The <br />
-                <span className="text-gold-dark">Vision</span>
+      <main className="relative z-10">
+        <section id="vision" className="px-6 pb-20 pt-36 md:px-8 lg:px-10 lg:pb-28 lg:pt-44">
+          <div className="relative mx-auto max-w-6xl text-center">
+              <h1 className="hero-title mx-auto mt-10 max-w-5xl text-[4rem] leading-[0.88] text-white sm:text-[5.3rem] lg:text-[6.9rem]">
+                Sistemas de embalaje
+                <br />
+                <span className="text-gold-light">para marcas exigentes</span>
               </h1>
 
-              <p className="mt-7 max-w-md text-[15px] leading-7 text-brown/82 md:text-base">
+              <p className="mx-auto mt-8 max-w-2xl text-[15px] leading-7 text-stone-200/88 md:text-[17px] md:leading-8">
                 Sistemas de embalaje que combinan la precision de la ingenieria tecnica con la
                 sofisticacion de una marca de lujo. Disenados para proteger, fabricados para
                 impresionar.
               </p>
 
-              <div className="mt-9 flex items-center gap-5">
-                <div className="gold-line h-px w-16" />
-                <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-brown/72">
-                  Est. 2024
-                </span>
-              </div>
-            </div>
-
-            <div className="order-1 lg:order-2">
-              <div className="relative isolate">
-                <div className="overflow-hidden rounded-[1.5rem] border border-stone-900/8 bg-stone-300 shadow-[0_24px_60px_rgba(31,26,23,0.08)]">
-                  <img
-                    src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80"
-                    alt="Centro de distribucion y embalaje premium"
-                    className="h-[26rem] w-full object-cover transition duration-700 hover:scale-[1.02] sm:h-[34rem]"
-                  />
-                </div>
-
-                <div className="paper-panel absolute -bottom-6 left-4 hidden max-w-xs rounded-[1.25rem] border border-stone-900/8 p-6 md:block">
-                  <Logo className="h-6 w-auto text-brown" />
-                  <p className="mt-4 text-[10px] uppercase tracking-[0.18em] text-brown/70">
-                    Especificaciones tecnicas
-                    <br />
-                    Vol. 01 - 2026
-                  </p>
+              <div className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-white/14 bg-white/[0.04] p-3 shadow-[0_26px_70px_rgba(22,14,10,0.28)] backdrop-blur-md sm:mt-16 sm:p-4">
+                <div className="relative overflow-hidden rounded-[1.65rem]">
+                  <div className="aspect-video w-full">
+                    <iframe
+                      className="h-full w-full"
+                      src="https://www.youtube-nocookie.com/embed/nWGkSARcXAY?rel=0"
+                      title="Video de AMY7 Packaging Systems"
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            
           </div>
         </section>
 
-        <section id="catalogo" className="bg-paper-soft px-6 py-24 md:px-8 lg:px-10 lg:py-32">
+        <section
+          id="catalogo"
+          className="mx-4 rounded-[2rem] border border-white/10 bg-white/6 px-6 py-24 shadow-[0_24px_70px_rgba(0,0,0,0.2)] backdrop-blur-md md:mx-6 md:px-8 lg:mx-10 lg:px-10 lg:py-32"
+        >
           <div className="mx-auto max-w-7xl">
             <div className="mb-16 flex flex-col gap-5 md:mb-18 md:flex-row md:items-end md:justify-between">
-              <h2 className="font-display text-3xl leading-tight text-ink md:text-[2.6rem]">
-                Lineas de <span className="text-gold-dark">Embalaje</span>
+              <h2 className="font-display text-3xl leading-tight text-ivory md:text-[2.6rem]">
+                Lineas de <span className="text-gold-light">Embalaje</span>
               </h2>
-              <p className="text-[10px] uppercase tracking-[0.18em] text-brown/60">
+              <p className="text-[10px] uppercase tracking-[0.18em] text-gold-light/72">
                 Seleccion de Materiales Premium
               </p>
             </div>
@@ -224,8 +270,6 @@ function App() {
           id="especificaciones"
           className="relative overflow-hidden px-6 py-24 text-white md:px-8 lg:px-10 lg:py-32"
         >
-          <div className="absolute inset-0 dark-panel" />
-
           <div className="relative mx-auto max-w-5xl">
             <div className="rounded-[1.5rem] border border-white/10 bg-white/3 p-8 shadow-[0_24px_70px_rgba(0,0,0,0.12)] backdrop-blur-sm md:p-12 lg:p-16">
               <div className="grid gap-14 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
@@ -267,11 +311,11 @@ function App() {
         <section id="contacto" className="px-6 py-24 md:px-8 lg:px-10 lg:py-32">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto max-w-2xl text-center">
-              <p className="text-[10px] uppercase tracking-[0.18em] text-gold-dark">Contacto</p>
-              <h2 className="mt-5 font-display text-3xl leading-tight text-ink md:text-[2.7rem]">
+              <p className="text-[10px] uppercase tracking-[0.18em] text-gold-light">Contacto</p>
+              <h2 className="mt-5 font-display text-3xl leading-tight text-white md:text-[2.7rem]">
                 Listo para comenzar?
               </h2>
-              <p className="mx-auto mt-5 max-w-xl text-[15px] leading-7 text-brown/76">
+              <p className="mx-auto mt-5 max-w-xl text-[15px] leading-7 text-stone-200/82">
                 Cuentanos sobre tu proyecto y te responderemos con una propuesta inicial en menos
                 de 24 horas habiles.
               </p>
@@ -288,7 +332,7 @@ function App() {
                   {contactDetails.map((item) => (
                     <div
                       key={item.id}
-                      className="flex items-center gap-4 rounded-[1rem] border border-stone-900/8 bg-white/60 p-4"
+                      className="flex items-center gap-4 rounded-[1rem] border border-stone-900/10 bg-white/92 p-4"
                     >
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-gold/30 bg-paper text-gold-dark">
                         {item.icon}
@@ -322,7 +366,7 @@ function App() {
                     <input
                       type="text"
                       placeholder="Tu nombre"
-                      className="w-full rounded-xl border border-stone-900/10 bg-white px-4 py-3.5 text-[15px] text-brown outline-none transition placeholder:text-brown/40 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
+                      className="w-full rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
                     />
                   </label>
 
@@ -333,7 +377,7 @@ function App() {
                     <input
                       type="email"
                       placeholder="tu@empresa.com"
-                      className="w-full rounded-xl border border-stone-900/10 bg-white px-4 py-3.5 text-[15px] text-brown outline-none transition placeholder:text-brown/40 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
+                      className="w-full rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
                     />
                   </label>
 
@@ -344,7 +388,7 @@ function App() {
                     <input
                       type="text"
                       placeholder="Nombre de tu empresa"
-                      className="w-full rounded-xl border border-stone-900/10 bg-white px-4 py-3.5 text-[15px] text-brown outline-none transition placeholder:text-brown/40 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
+                      className="w-full rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
                     />
                   </label>
 
@@ -352,7 +396,7 @@ function App() {
                     <span className="mb-2 block text-sm font-semibold text-brown">
                       Servicio de interes
                     </span>
-                    <select className="w-full appearance-none rounded-xl border border-stone-900/10 bg-white px-4 py-3.5 text-[15px] text-brown outline-none transition focus:border-gold-dark focus:ring-2 focus:ring-gold/10">
+                    <select className="w-full appearance-none rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition focus:border-gold-dark focus:ring-2 focus:ring-gold/10">
                       <option>Selecciona un servicio</option>
                       <option>Cajas de carton</option>
                       <option>Cintas adhesivas</option>
@@ -368,7 +412,7 @@ function App() {
                   </span>
                   <textarea
                     placeholder="Cuentanos que necesitas, cantidades estimadas y fechas objetivo."
-                    className="h-36 w-full resize-none rounded-xl border border-stone-900/10 bg-white px-4 py-3.5 text-[15px] text-brown outline-none transition placeholder:text-brown/40 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
+                    className="h-36 w-full resize-none rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
                   />
                 </label>
 
@@ -384,10 +428,10 @@ function App() {
         </section>
       </main>
 
-      <footer className="border-t border-stone-900/8 px-6 py-14 md:px-8 lg:px-10">
+      <footer className="relative z-10 border-t border-white/10 bg-white/6 px-6 py-14 backdrop-blur-sm md:px-8 lg:px-10">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 text-center">
-          <Logo className="h-8 w-auto text-brown/35" />
-          <p className="text-[9px] uppercase tracking-[0.18em] text-brown/55">
+          <Logo className="h-8 w-auto text-gold-light/55" />
+          <p className="text-[9px] uppercase tracking-[0.18em] text-stone-300/55">
             AMY7 Packaging Systems © 2026. Todos los derechos reservados.
           </p>
         </div>

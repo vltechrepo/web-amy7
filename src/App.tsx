@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 
+import cartonImage from '@/assets/catalogo/carton.jpg'
+import impresosImage from '@/assets/catalogo/impresos.jpg'
+import peliculaPlasticaImage from '@/assets/catalogo/pelicula-plastica.jpg'
 import logoAmy7 from '@/assets/logo-amy7.svg?raw'
 import BackgroundGradientSnippet from '@/components/ui/background-gradient-snippet'
 
@@ -30,8 +33,7 @@ const products: Product[] = [
     title: 'Carton',
     description:
       'Contamos con fabricacion de cajas de carton a la medida de la mejor calidad, con una capacidad de produccion diaria de mas de 50 mil cajas. Asegurando tiempos de entrega y abastecimiento en cualquier necesidad de nuestros clientes.',
-    image:
-      'https://images.unsplash.com/photo-1607166452427-7e4477079cb9?auto=format&fit=crop&q=80',
+    image: cartonImage,
   },
   {
     id: 'tapes',
@@ -39,8 +41,7 @@ const products: Product[] = [
     title: 'Impresos',
     description:
       'Contamos con la mejor calidad y velocidad en la fabricacion de todo tipo de cintas adhesivas y flejes con impresion. Asegurando siempre tu inventario y tiempos de entrega muy eficientes.',
-    image:
-      'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80',
+    image: impresosImage,
   },
   {
     id: 'film',
@@ -48,8 +49,7 @@ const products: Product[] = [
     title: 'Pelicula Plastica',
     description:
       'Con nosotros podras tener siempre tus requerimientos de cualquier tipo de pelicula plastica abastecidos, no importa si es pelicula manual, para maquina o grado alimenticio.',
-    image:
-      'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&q=80',
+    image: peliculaPlasticaImage,
   },
 ]
 
@@ -181,7 +181,7 @@ function App() {
       <BackgroundGradientSnippet />
 
       <nav className="fixed inset-x-0 top-3 z-50 px-3 md:top-4 md:px-6">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-stone-200/65 bg-white/68 px-4 py-3 shadow-[0_16px_40px_rgba(91,75,61,0.08)] backdrop-blur-xl md:px-6">
+        <div className="surface-glass mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border px-4 py-3 shadow-[0_16px_40px_rgba(91,75,61,0.08)] backdrop-blur-xl md:px-6">
           <a href="#vision" className="text-ink transition hover:text-gold-dark" aria-label="Ir al inicio">
             <Logo className="h-7 w-auto sm:h-8" />
           </a>
@@ -309,10 +309,6 @@ function App() {
                   key={product.id}
                   className="paper-panel group relative overflow-hidden rounded-[1.25rem] border border-stone-900/8 p-8 transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(31,26,23,0.08)] lg:p-10"
                 >
-                  <span className="pointer-events-none absolute left-7 top-4 font-display text-5xl leading-none text-brown/8 lg:text-6xl">
-                    {product.number}
-                  </span>
-
                   <div className="relative">
                     <h3 className="max-w-[12rem] text-lg font-bold uppercase tracking-[0.04em] text-brown">
                       {product.title}
@@ -321,12 +317,13 @@ function App() {
                       {product.description}
                     </p>
 
-                    <div className="mt-8 overflow-hidden rounded-[1.4rem]">
+                    <div className="relative mt-8 overflow-hidden rounded-[1.4rem] shadow-[0_18px_40px_rgba(37,24,15,0.26)]">
                       <img
                         src={product.image}
                         alt={product.title}
-                        className="h-56 w-full object-cover transition duration-700 group-hover:scale-105"
+                        className="h-56 w-full object-cover saturate-[0.82] sepia-[0.18] brightness-[0.92] contrast-[0.96] transition duration-700 group-hover:scale-105"
                       />
+                      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(196,169,121,0.14)_0%,rgba(121,82,46,0.18)_55%,rgba(34,24,18,0.2)_100%)] mix-blend-multiply" />
                     </div>
                   </div>
                 </article>
@@ -405,7 +402,7 @@ function App() {
                   {contactDetails.map((item) => (
                     <div
                       key={item.id}
-                      className="flex items-center gap-4 rounded-[1rem] border border-stone-900/10 bg-white/92 p-4"
+                      className="flex items-center gap-4 rounded-[1rem] border border-stone-900/10 bg-white/72 p-4 backdrop-blur-sm"
                     >
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-gold/30 bg-paper text-gold-dark">
                         {item.icon}
@@ -446,7 +443,7 @@ function App() {
                       type="text"
                       placeholder="Tu nombre"
                       required
-                      className="w-full rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
+                      className="w-full rounded-xl border border-stone-900/10 bg-white/78 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
                     />
                   </label>
 
@@ -459,7 +456,7 @@ function App() {
                       type="email"
                       placeholder="tu@empresa.com"
                       required
-                      className="w-full rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
+                      className="w-full rounded-xl border border-stone-900/10 bg-white/78 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
                     />
                   </label>
 
@@ -471,7 +468,7 @@ function App() {
                       name="company"
                       type="text"
                       placeholder="Nombre de tu empresa"
-                      className="w-full rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
+                      className="w-full rounded-xl border border-stone-900/10 bg-white/78 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
                     />
                   </label>
 
@@ -481,7 +478,7 @@ function App() {
                     </span>
                     <select
                       name="service"
-                      className="w-full appearance-none rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
+                      className="w-full appearance-none rounded-xl border border-stone-900/10 bg-white/78 px-4 py-3.5 text-[15px] text-ink outline-none transition focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
                     >
                       <option>Selecciona un servicio</option>
                       <option>Cajas de carton</option>
@@ -500,7 +497,7 @@ function App() {
                     name="message"
                     placeholder="Cuentanos que necesitas, cantidades estimadas y fechas objetivo."
                     required
-                    className="h-36 w-full resize-none rounded-xl border border-stone-900/10 bg-white/96 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
+                    className="h-36 w-full resize-none rounded-xl border border-stone-900/10 bg-white/78 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-brown/42 focus:border-gold-dark focus:ring-2 focus:ring-gold/10"
                   />
                 </label>
 

@@ -274,7 +274,7 @@ function App() {
                   <div className="aspect-video w-full">
                     <iframe
                       className="h-full w-full"
-                      src="https://www.youtube-nocookie.com/embed/nWGkSARcXAY?rel=0"
+                      src="https://www.youtube-nocookie.com/embed/e266jAxADP8?rel=0"
                       title="Video de AMY7 Packaging Systems"
                       loading="lazy"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

@@ -30,25 +30,25 @@ const products: Product[] = [
   {
     id: 'boxes',
     number: '01',
-    title: 'Carton',
+    title: 'CARTÓN',
     description:
-      'Contamos con fabricacion de cajas de carton a la medida de la mejor calidad, con una capacidad de produccion diaria de mas de 50 mil cajas. Asegurando tiempos de entrega y abastecimiento en cualquier necesidad de nuestros clientes.',
+      'Contamos con fabricación de cajas de cartón a la medida de la mejor calidad, con una capacidad de producción diaria de más de 50 mil cajas. Asegurando tiempos de entrega y abastecimiento en cualquier necesidad de nuestros clientes.',
     image: cartonImage,
   },
   {
     id: 'tapes',
     number: '02',
-    title: 'Impresos',
+    title: 'IMPRESOS',
     description:
-      'Contamos con la mejor calidad y velocidad en la fabricacion de todo tipo de cintas adhesivas y flejes con impresion. Asegurando siempre tu inventario y tiempos de entrega muy eficientes.',
+      'Contamos con la mejor calidad y velocidad en la fabricación de todo tipo de cintas adhesivas y flejes con impresión. Asegurando siempre tu inventario y tiempos de entrega muy eficientes.',
     image: impresosImage,
   },
   {
     id: 'film',
     number: '03',
-    title: 'Pelicula Plastica',
+    title: 'PELÍCULA PLÁSTICA',
     description:
-      'Con nosotros podras tener siempre tus requerimientos de cualquier tipo de pelicula plastica abastecidos, no importa si es pelicula manual, para maquina o grado alimenticio.',
+      'Con nosotros podrás tener siempre tus requerimientos de cualquier tipo de película plástica abastecidos, no importa si es película manual, para máquina o grado alimenticio.',
     image: peliculaPlasticaImage,
   },
 ]

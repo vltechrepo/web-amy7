@@ -20,9 +20,9 @@ type Metric = {
 }
 
 const navigation = [
-  { href: '#vision', label: 'Vision' },
-  { href: '#catalogo', label: 'Catalogo' },
-  { href: '#especificaciones', label: 'Tecnica' },
+  { href: '#vision', label: 'Inicio' },
+  { href: '#catalogo', label: 'Productos' },
+  { href: '#especificaciones', label: 'Calidad' },
   { href: '#contacto', label: 'Contacto', primary: true },
 ]
 
@@ -54,7 +54,7 @@ const products: Product[] = [
 ]
 
 const metrics: Metric[] = [
-  { label: 'Resistencia al impacto', value: 'ASTM D4169' },
+  { label: 'Resistencia al impacto', value: 'Certificaciones ISO 9001' },
   { label: 'Adherencia tecnica', value: 'PSTC-101' },
   { label: 'Elongacion maxima', value: '350%' },
 ]
@@ -74,11 +74,21 @@ const contactDetails = [
   {
     id: 'location',
     label: 'Ubicacion',
-    value: 'Monterrey, Mexico',
+    value: 'Av. Miguel Alemán 120, Edificio "Nave 01" Col. Industrial Milimex, Apodaca, Nuevo León, C.P. 66637',
     icon: (
       <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
         <path d="M12 20s6-4.35 6-10a6 6 0 1 0-12 0c0 5.65 6 10 6 10Z" />
         <circle cx="12" cy="10" r="2.2" />
+      </svg>
+    ),
+  },
+  {
+    id: 'phone',
+    label: 'Telefono',
+    value: '81 4660 0005',
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M5.5 4.5h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 4 6.1 1.5 1.5 0 0 1 5.5 4.5Z" />
       </svg>
     ),
   },
@@ -257,16 +267,14 @@ function App() {
       <main className="relative z-10">
         <section id="vision" className="px-6 pb-20 pt-36 md:px-8 lg:px-10 lg:pb-28 lg:pt-44">
           <div className="relative mx-auto max-w-6xl text-center">
-              <h1 className="hero-title mx-auto mt-10 max-w-5xl text-[4rem] leading-[0.88] text-white sm:text-[5.3rem] lg:text-[6.9rem]">
-                Sistemas de embalaje
+              <h1 className="hero-title mx-auto mt-10 max-w-6xl text-[2.75rem] leading-[0.95] text-white sm:text-[5.3rem] sm:leading-[0.88] lg:text-[5.5rem] xl:text-[6.4rem]">
+                Productos de embalaje
                 <br />
-                <span className="text-gold-light">para marcas exigentes</span>
+                <span className="text-gold-light">para clientes exigentes</span>
               </h1>
 
               <p className="mx-auto mt-8 max-w-2xl text-[15px] leading-7 text-stone-200/88 md:text-[17px] md:leading-8">
-                Sistemas de embalaje que combinan la precision de la ingenieria tecnica con la
-                sofisticacion de una marca de lujo. Disenados para proteger, fabricados para
-                impresionar.
+                Diseñados para proteger, fabricados con altos estándares de calidad.
               </p>
 
               <div className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-white/14 bg-white/[0.04] p-3 shadow-[0_26px_70px_rgba(22,14,10,0.28)] backdrop-blur-md sm:mt-16 sm:p-4">
@@ -295,12 +303,12 @@ function App() {
           <div className="mx-auto max-w-7xl">
             <div className="mb-5 md:mb-7">
               <h2 className="text-center font-display text-3xl leading-tight text-ivory md:text-left md:text-[2.6rem]">
-                Lineas de <span className="text-gold-light">Embalaje</span>
+                PRODUCTOS DE <span className="text-gold-light">EMBALAJE</span>
               </h2>
             </div>
 
             <p className="mb-10 max-w-3xl text-center text-[15px] leading-7 text-stone-200/82 md:mb-12 md:text-left md:text-base">
-              Nuestra especialidad es el embalaje de las siguientes 3 areas.
+              Nos especializamos en las siguientes 3 áreas.
             </p>
 
             <div className="grid gap-5 md:grid-cols-3">
@@ -329,10 +337,6 @@ function App() {
                 </article>
               ))}
             </div>
-
-            <p className="mt-12 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-gold-light/78 md:mt-14">
-              Todos nuestros procesos cuentan con las certificaciones ISO 9001.
-            </p>
           </div>
         </section>
 
@@ -347,9 +351,8 @@ function App() {
                   <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.18em] text-gold-light">
                     Standard de Calidad
                   </p>
-                  <h3 className="max-w-lg font-display text-3xl leading-tight text-ivory md:text-[2.4rem]">
-                    Cada componente es una pieza de{' '}
-                    <span className="text-gold-light">ingenieria aplicada</span>.
+                  <h3 className="max-w-xl font-display text-2xl leading-tight text-ivory md:text-[2rem]">
+                    Contamos con procesos de fabricación certificados.
                   </h3>
 
                   <ul className="mt-10 space-y-4 text-sm text-stone-200">
@@ -359,7 +362,7 @@ function App() {
                         className="flex items-center justify-between gap-4 border-b border-white/10 pb-3 uppercase tracking-[0.08em]"
                       >
                         <span>{metric.label}</span>
-                        <span className="text-white">{metric.value}</span>
+                        <span className="text-right text-white">{metric.value}</span>
                       </li>
                     ))}
                   </ul>
@@ -369,9 +372,6 @@ function App() {
                   <div className="rounded-[1.25rem] border border-white/10 bg-white/6 px-8 py-8">
                     <Logo className="h-auto w-44 text-white/80" />
                   </div>
-                  <p className="mt-8 text-center text-[10px] uppercase tracking-[0.18em] text-white/60 md:text-right">
-                    AMY7 | Innovacion y Elegancia
-                  </p>
                 </div>
               </div>
             </div>
@@ -386,8 +386,7 @@ function App() {
                 Listo para comenzar?
               </h2>
               <p className="mx-auto mt-5 max-w-xl text-[15px] leading-7 text-stone-200/82">
-                Cuentanos sobre tu proyecto y te responderemos con una propuesta inicial en menos
-                de 24 horas habiles.
+                Captura tus datos para que nuestro equipo pueda contactarte.
               </p>
             </div>
 

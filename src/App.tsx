@@ -14,11 +14,6 @@ type Product = {
   image: string
 }
 
-type Metric = {
-  label: string
-  value: string
-}
-
 const navigation = [
   { href: '#vision', label: 'Inicio' },
   { href: '#catalogo', label: 'Productos' },
@@ -51,12 +46,6 @@ const products: Product[] = [
       'Con nosotros podrás tener siempre tus requerimientos de cualquier tipo de película plástica abastecidos, no importa si es película manual, para máquina o grado alimenticio.',
     image: peliculaPlasticaImage,
   },
-]
-
-const metrics: Metric[] = [
-  { label: 'Resistencia al impacto', value: 'Certificaciones ISO 9001' },
-  { label: 'Adherencia tecnica', value: 'PSTC-101' },
-  { label: 'Elongacion maxima', value: '350%' },
 ]
 
 const contactDetails = [
@@ -355,17 +344,9 @@ function App() {
                     Contamos con procesos de fabricación certificados.
                   </h3>
 
-                  <ul className="mt-10 space-y-4 text-sm text-stone-200">
-                    {metrics.map((metric) => (
-                      <li
-                        key={metric.label}
-                        className="flex items-center justify-between gap-4 border-b border-white/10 pb-3 uppercase tracking-[0.08em]"
-                      >
-                        <span>{metric.label}</span>
-                        <span className="text-right text-white">{metric.value}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="mt-10 border-b border-white/10 pb-3 text-right text-sm uppercase tracking-[0.08em] text-white">
+                    Certificaciones ISO 9001
+                  </p>
                 </div>
 
                 <div className="flex flex-col items-center justify-center md:items-end">
